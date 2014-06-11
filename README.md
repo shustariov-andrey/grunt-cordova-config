@@ -181,7 +181,7 @@ grunt.initConfig({
     },
     dest : 'cordova-project/www/config.xml'
   }
-})
+});
 ```
 
 ## Contributing
