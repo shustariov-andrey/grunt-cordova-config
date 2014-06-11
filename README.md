@@ -2,6 +2,9 @@
 
 > Generates cordova config.xml file
 
+[![Build Status](https://travis-ci.org/shustariov-andrey/grunt-cordova-config.svg?branch=master)](https://travis-ci.org/shustariov-andrey/grunt-cordova-config) [![Dependency Status](https://david-dm.org/shustariov-andrey/grunt-cordova-config.svg)](https://david-dm.org/shustariov-andrey/grunt-cordova-config) [![devDependency Status](https://david-dm.org/shustariov-andrey/grunt-cordova-config/dev-status.svg)](https://david-dm.org/shustariov-andrey/grunt-cordova-config#info=devDependencies)
+
+
 ## Getting Started
 This plugin requires Grunt.
 
