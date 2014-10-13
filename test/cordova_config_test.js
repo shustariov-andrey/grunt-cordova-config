@@ -36,6 +36,15 @@ exports.cordova_config = {
 
       test.done();
    },
+   all_options_external_app_whitelist: function (test) {
+        test.expect(1);
+
+        var actual = grunt.file.read('tmp/config_actual_external_app_whitelist.xml');
+        var expected = grunt.file.read('test/expected/config_external_app_whitelist_xml.xml');
+        test.equal(actual, expected, 'should generate valid config with external application whitelist.xml.');
+
+        test.done();
+   },
    default_options : function(test) {
       test.expect(1);
 
