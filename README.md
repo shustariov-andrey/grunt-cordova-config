@@ -28,12 +28,15 @@ In your project's Gruntfile, add a section named `cordova_config` to the data ob
 ```js
 grunt.initConfig({
   cordova_config: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+    my_target: {
+        options : {
+            id : 'com.example.hello',
+            version : '1.0.0',
+            // ...
+        },
+        dest : 'path/to/config.xml
+      
+    }
   },
 })
 ```
@@ -130,7 +133,9 @@ In this example, the default options are used to generate config.xml file. The r
 ```js
 grunt.initConfig({
   cordova_config: {
-    dest: 'cordova-project/www/config.xml'
+    my_target : {
+      dest: 'cordova-project/www/config.xml'
+    }
   },
 })
 ```
