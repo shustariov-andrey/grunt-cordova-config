@@ -86,6 +86,69 @@ module.exports = function (grunt) {
             },
             dest   : 'tmp/config_actual.xml'
          },
+         allOptionsExternalAppWhitelist: {
+              options: {
+                  id         : 'com.shustariov.mtclient',
+                  name       : 'MT Client',
+                  version    : '0.0.1',
+                  description: 'An application for money tracking',
+                  author     : {
+                      name : 'Andrey Shustariov',
+                      email: 'shutarev.andrey@gmail.com'
+                  },
+                  content    : {
+                      src: 'out/index.html'
+                  },
+                  access     : [
+                      {
+                          origin: '*'
+                      },
+                      {
+                          origin: 'tel:*',
+                          'launch-external': 'yes'
+                      },
+                      {
+                          origin: 'mailto:*',
+                          'launch-external': 'yes'
+                      }
+                  ],
+                  preferences: [
+                      {
+                          name : 'fullscreen',
+                          value: true
+                      },
+                      {
+                          name : 'webviewbounce',
+                          value: false
+                      },
+                      {
+                          name : 'UIWebViewBounce',
+                          value: false
+                      },
+                      {
+                          name : 'DisallowOverscroll',
+                          value: true
+                      },
+                      {
+                          name : 'BackupWebStorage',
+                          value: 'none'
+                      }
+                  ],
+                  features   : [
+                      {
+                          name  : 'StatusBar',
+                          params: [
+                              {
+                                  name  : 'ios-package',
+                                  value : 'CDVStatusBar',
+                                  onload: true
+                              }
+                          ]
+                      }
+                  ]
+              },
+              dest   : 'tmp/config_actual_external_app_whitelist.xml'
+         },
          defaultOptions : {
             dest : 'tmp/default-options.xml'
          }

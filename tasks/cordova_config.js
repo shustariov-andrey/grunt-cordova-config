@@ -63,11 +63,17 @@ module.exports = function (grunt) {
                src : options.content.src
             }
          },
-         access : {
-            '@' : {
-               origin : options.access.origin
-            }
-         },
+         access : (options.access instanceof Array) !== true ? { '@': { origin: options.access.origin } } : options.access.map(function(opt) {
+             var _access = {
+                 '@': {
+                     origin: opt.origin
+                 }
+             };
+             if (!!opt['launch-external']) {
+                 _access['@']['launch-external'] = opt['launch-external'];
+             }
+             return _access;
+         }),
          preference : options.preferences.map(function(pref) {
             return {
                '@' : {
