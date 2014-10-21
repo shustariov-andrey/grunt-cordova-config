@@ -22,6 +22,11 @@ var grunt = require('grunt');
  test.ifError(value)
  */
 
+function readFile(path) {
+   // Fixes bug, when expected and actual files are created on different systems
+   return grunt.file.read(path).replace(/(\r\n)/g, '\n');
+}
+
 exports.cordova_config = {
    setUp          : function (done) {
       // setup here if necessary
@@ -30,8 +35,8 @@ exports.cordova_config = {
    all_options: function (test) {
       test.expect(1);
 
-      var actual = grunt.file.read('tmp/config_actual.xml');
-      var expected = grunt.file.read('test/expected/config_xml.xml');
+      var actual = readFile('tmp/config_actual.xml');
+      var expected = readFile('test/expected/config_xml.xml');
       test.equal(actual, expected, 'should generate valid config.xml.');
 
       test.done();
@@ -39,8 +44,8 @@ exports.cordova_config = {
    all_options_external_app_whitelist: function (test) {
         test.expect(1);
 
-        var actual = grunt.file.read('tmp/config_actual_external_app_whitelist.xml');
-        var expected = grunt.file.read('test/expected/config_external_app_whitelist_xml.xml');
+        var actual = readFile('tmp/config_actual_external_app_whitelist.xml');
+        var expected = readFile('test/expected/config_external_app_whitelist_xml.xml');
         test.equal(actual, expected, 'should generate valid config with external application whitelist.xml.');
 
         test.done();
@@ -48,8 +53,8 @@ exports.cordova_config = {
    default_options : function(test) {
       test.expect(1);
 
-      var actual = grunt.file.read('tmp/default-options.xml');
-      var expected = grunt.file.read('test/expected/cordova-config.xml');
+      var actual = readFile('tmp/default-options.xml');
+      var expected = readFile('test/expected/cordova-config.xml');
       test.equal(actual, expected, 'should generate valid default config.xml.');
 
       test.done();
