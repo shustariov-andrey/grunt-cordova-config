@@ -1,6 +1,6 @@
 /*
  * grunt-cordova-config
- * 
+ *
  *
  * Copyright (c) 2014 Andrey Shustariov
  * Licensed under the MIT license.
@@ -39,7 +39,8 @@ module.exports = function (grunt) {
                value : true
             }
          ],
-         features : grunt.option('features') || []
+         features : grunt.option('features') || [],
+         platforms : grunt.option('platforms') || []
       });
 
       var data = {
@@ -100,7 +101,35 @@ module.exports = function (grunt) {
                   return p;
                })
             };
-         })
+         }),
+        platform : options.platforms.map(function(platform) {
+          var icons = platform.icons || [];
+
+          return {
+            '@' : {
+              name : platform.name
+            },
+
+            icon : icons.map(function(icon) {
+              var i = {
+                '@' : {
+                  src : icon.src,
+                }
+              };
+
+              if ('density' in icon) {
+                i['@'].density = icon.density;
+              }
+              if ('width' in icon) {
+                i['@'].width = icon.width;
+              }
+              if ('height' in icon) {
+                i['@'].height = icon.height;
+              }
+              return i;
+            })
+          };
+        })
       };
 
       var result = js2xmlparser("widget", data);

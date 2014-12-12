@@ -1,6 +1,6 @@
 /*
  * grunt-cordova-config
- * 
+ *
  *
  * Copyright (c) 2014 Andrey Shustariov
  * Licensed under the MIT license.
@@ -82,6 +82,30 @@ module.exports = function (grunt) {
                         }
                      ]
                   }
+               ],
+               platforms  : [
+                  {
+                     name  : 'android',
+                     icons : [
+                       {
+                          src: 'res/icon.jpg',
+                          density: 'ldpi'
+                       },
+                       {
+                         src: 'res/icon.jpg',
+                         height: '50px',
+                         width: '50px'
+                       }
+                     ]
+                  },
+                  {
+                     name  : 'ios',
+                     icons : [
+                       {
+                         src: 'res/icon.jpg'
+                       }
+                     ]
+                 }
                ]
             },
             dest   : 'tmp/config_actual.xml'
