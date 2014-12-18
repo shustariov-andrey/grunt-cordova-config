@@ -98,8 +98,8 @@ module.exports = function (grunt) {
                         },
                         {
                            src: 'res/icon.jpg',
-                           height: '50px',
-                           width: '50px'
+                           height: 50,
+                           width: 50
                         }
                      ],
                      splash : [
