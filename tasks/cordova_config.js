@@ -13,6 +13,11 @@ module.exports = function (grunt) {
 
    // Ensure that only supported attributes are included in XML
    function attributesForImage(image) {
+      if (grunt.util.kindOf(image) !== 'object') {
+         // js2xmlparser does not create an element to represent []
+         return [];
+      }
+
       var i = {
          src : image.src
       };
@@ -58,7 +63,8 @@ module.exports = function (grunt) {
             }
          ],
          features : grunt.option('features') || [],
-         platforms : grunt.option('platforms') || []
+         platforms : grunt.option('platforms') || [],
+         icon : grunt.option('icon') || null
       });
 
       var data = {
@@ -120,6 +126,7 @@ module.exports = function (grunt) {
                })
             };
          }),
+         icon : attributesForImage(options.icon),
          platform : options.platforms.map(function(platform) {
             var icons = platform.icons || [];
             var splashScreens = platform.splash || [];
