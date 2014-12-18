@@ -111,16 +111,18 @@ Type: `Array`
 
 _Example:_
 ```js
-features : {
-  name : 'StatusBar',
-  params: [
-  	{
-    	name  : 'ios-package',
-    	value : 'CDVStatusBar',
-    	onload: true
-  	}
-  ]
-}
+features : [
+  {
+    name : 'StatusBar',
+    params: [
+      {
+        name  : 'ios-package',
+        value : 'CDVStatusBar',
+        onload: true
+      }
+    ]
+  }
+]
 ```
 
 Default value: `[]`
