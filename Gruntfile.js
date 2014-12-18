@@ -87,25 +87,25 @@ module.exports = function (grunt) {
                   {
                      name  : 'android',
                      icons : [
-                       {
-                          src: 'res/icon.jpg',
-                          density: 'ldpi'
-                       },
-                       {
-                         src: 'res/icon.jpg',
-                         height: '50px',
-                         width: '50px'
-                       }
+                        {
+                           src: 'res/icon.jpg',
+                           density: 'ldpi'
+                        },
+                        {
+                           src: 'res/icon.jpg',
+                           height: '50px',
+                           width: '50px'
+                        }
                      ]
                   },
                   {
                      name  : 'ios',
                      icons : [
-                       {
-                         src: 'res/icon.jpg'
-                       }
+                        {
+                           src: 'res/icon.jpg'
+                        }
                      ]
-                 }
+                  }
                ]
             },
             dest   : 'tmp/config_actual.xml'
