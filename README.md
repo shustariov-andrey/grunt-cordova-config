@@ -89,7 +89,7 @@ Type: `String`
 Default value: `*`
 
 #### options.preferences
-Type: `Array`
+Type: `Array` of ([Preference objects](#preference-objects))
 
 _Example:_
 ```js
@@ -126,6 +126,91 @@ features : [
 ```
 
 Default value: `[]`
+
+#### options.icon
+Type: `Object` ([Image object](#image-objects))
+
+References an image from which Cordova can generate appropriately-sized icons for each platform. Note that the `platform` option is not supported; use the `icons` option within `platforms` instead.
+
+Default value: `null`
+
+#### options.platforms
+Type: `Array` of ([Platform objects](#platform-objects))
+
+_Example:_
+```js
+platforms : [
+  {
+    name : 'ios',
+    icons: [
+      {
+        src   : 'res/Icon-60.png',
+        width : 60,
+        height: 60
+      }
+    ],
+    splash: [
+      {
+        src   : 'res/Default.png',
+        width : 320,
+        height: 480
+      }
+    ],
+    preferences: [
+      {
+        fullscreen: false
+      }
+    ]
+  },
+  {
+    name : 'android',
+    icons: [
+      {
+        src    : 'res/icon-hdpi.png',
+        density: 'hdpi'
+      }
+    ]
+  }
+]
+```
+
+### Preference Objects
+
+#### preference.name
+Type: `String`
+
+#### preference.value
+Type: _any_
+
+### Image Objects
+
+Please refer to the Cordova/PhoneGap Icons and Splash Screens documentation for usage. Generally, Android requires the `density` parameter while other platforms either use `width` and `height` or require a specific image name.
+
+#### image.src
+Type: `String`
+
+#### image.density
+Type: `String`
+
+#### image.width
+Type: `Number`
+
+#### image.height
+Type: `Number`
+
+### Platform Objects
+
+#### platform.name
+Type: `String`
+
+#### platform.icons
+Type: `Array` of ([Image objects](#image-objects))
+
+#### platform.splash
+Type: `Array` of ([Image objects](#image-objects))
+
+#### platform.preferences
+Type: `Array` of ([Preference objects](#preference-objects))
 
 ### Usage Examples
 
@@ -185,6 +270,33 @@ grunt.initConfig({
                   value : 'CDVStatusBar',
                   onload: true
               }
+          ]
+        }
+      ],
+      icon : {
+        src : 'icon-default.png'
+      },
+      platforms : [
+        {
+          name : 'ios',
+          icons: [
+            {
+              src   : 'res/Icon-60.png',
+              width : 60,
+              height: 60
+            }
+          ],
+          splash: [
+            {
+              src   : 'res/Default.png',
+              width : 320,
+              height: 480
+            }
+          ],
+          preferences: [
+            {
+              fullscreen: false
+            }
           ]
         }
       ]
