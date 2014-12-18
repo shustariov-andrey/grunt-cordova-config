@@ -11,6 +11,24 @@ var js2xmlparser = require("js2xmlparser");
 module.exports = function (grunt) {
    'use strict';
 
+   // Ensure that only supported attributes are included in XML
+   function attributesForImage(image) {
+      var i = {
+         src : image.src
+      };
+
+      if ('density' in image) {
+         i.density = image.density;
+      }
+      if ('width' in image) {
+         i.width = image.width;
+      }
+      if ('height' in image) {
+         i.height = image.height;
+      }
+      return { '@' : i };
+   }
+
    // Please see the Grunt documentation for more information regarding task
    // creation: http://gruntjs.com/creating-tasks
 
@@ -110,24 +128,7 @@ module.exports = function (grunt) {
                   name : platform.name
                },
 
-               icon : icons.map(function(icon) {
-                  var i = {
-                     '@' : {
-                        src : icon.src
-                     }
-                  };
-
-                  if ('density' in icon) {
-                     i['@'].density = icon.density;
-                  }
-                  if ('width' in icon) {
-                     i['@'].width = icon.width;
-                  }
-                  if ('height' in icon) {
-                     i['@'].height = icon.height;
-                  }
-                  return i;
-               })
+               icon : icons.map(attributesForImage)
             };
          })
       };
