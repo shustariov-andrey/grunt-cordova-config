@@ -23,5 +23,6 @@
 	<platform name="ios">
 		<icon src="res/icon.jpg"/>
 		<splash src="res/splash.png" width="320" height="480"/>
+		<preference name="fullscreen" value="false"/>
 	</platform>
 </widget>

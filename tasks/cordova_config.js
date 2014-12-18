@@ -34,6 +34,34 @@ module.exports = function (grunt) {
       return { '@' : i };
    }
 
+   function attributesForParam(param) {
+      if (grunt.util.kindOf(param) !== 'object') {
+         return [];
+      }
+
+      var p = {
+         name : param.name,
+         value: param.value
+      };
+
+      if ('onload' in param) {
+         p.onload = param.onload;
+      }
+      return { '@' : p };
+   }
+
+   function attributesForPreference(pref) {
+      if (grunt.util.kindOf(pref) !== 'object') {
+         return [];
+      }
+
+      var p = {
+         name : pref.name,
+         value: pref.value
+      };
+      return { '@' : p };
+   }
+
    // Please see the Grunt documentation for more information regarding task
    // creation: http://gruntjs.com/creating-tasks
 
@@ -99,37 +127,20 @@ module.exports = function (grunt) {
              }
              return _access;
          }),
-         preference : options.preferences.map(function(pref) {
-            return {
-               '@' : {
-                  name : pref.name,
-                  value : pref.value
-               }
-            };
-         }),
+         preference : options.preferences.map(attributesForPreference),
          feature : options.features.map(function(feature) {
             return {
                '@' : {
                   name : feature.name
                },
-               param : feature.params.map(function(param) {
-                  var p = {
-                     '@' : {
-                        name : param.name,
-                        value : param.value
-                     }
-                  };
-                  if ('onload' in param) {
-                     p['@'].onload = param.onload;
-                  }
-                  return p;
-               })
+               param : feature.params.map(attributesForParam)
             };
          }),
          icon : attributesForImage(options.icon),
          platform : options.platforms.map(function(platform) {
             var icons = platform.icons || [];
             var splashScreens = platform.splash || [];
+            var preferences = platform.preferences || [];
 
             return {
                '@' : {
@@ -137,7 +148,8 @@ module.exports = function (grunt) {
                },
 
                icon : icons.map(attributesForImage),
-               splash : splashScreens.map(attributesForImage)
+               splash : splashScreens.map(attributesForImage),
+               preference : preferences.map(attributesForPreference)
             };
          })
       };

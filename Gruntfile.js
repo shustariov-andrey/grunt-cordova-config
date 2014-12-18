@@ -126,6 +126,12 @@ module.exports = function (grunt) {
                            width: 320,
                            height: 480
                         }
+                     ],
+                     preferences : [
+                        {
+                           name : 'fullscreen',
+                           value: false
+                        }
                      ]
                   }
                ]
