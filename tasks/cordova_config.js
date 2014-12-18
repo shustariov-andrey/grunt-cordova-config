@@ -122,13 +122,15 @@ module.exports = function (grunt) {
          }),
          platform : options.platforms.map(function(platform) {
             var icons = platform.icons || [];
+            var splashScreens = platform.splash || [];
 
             return {
                '@' : {
                   name : platform.name
                },
 
-               icon : icons.map(attributesForImage)
+               icon : icons.map(attributesForImage),
+               splash : splashScreens.map(attributesForImage)
             };
          })
       };

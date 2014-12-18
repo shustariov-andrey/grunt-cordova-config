@@ -96,6 +96,16 @@ module.exports = function (grunt) {
                            height: '50px',
                            width: '50px'
                         }
+                     ],
+                     splash : [
+                        {
+                           src: 'res/splash-hdpi.png',
+                           density: 'port-hdpi'
+                        },
+                        {
+                           src: 'res/splash-mdpi.png',
+                           density: 'port-mdpi'
+                        }
                      ]
                   },
                   {
@@ -103,6 +113,13 @@ module.exports = function (grunt) {
                      icons : [
                         {
                            src: 'res/icon.jpg'
+                        }
+                     ],
+                     splash: [
+                        {
+                           src: 'res/splash.png',
+                           width: 320,
+                           height: 480
                         }
                      ]
                   }
