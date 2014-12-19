@@ -127,12 +127,21 @@ features : [
 
 Default value: `[]`
 
-#### options.icon
-Type: `Object` ([Image object](#image-objects))
+#### options.icons
+Type: `Array` of ([Image objects](#image-objects))
 
-References an image from which Cordova can generate appropriately-sized icons for each platform. Note that the `platform` option is not supported; use the `icons` option within `platforms` instead.
+References images from which Cordova can generate appropriately-sized icons for each platform. This is particularly useful for early prototypes for which platform-specific icons have not yet been created. See also the `icons` attribute in `options.platforms`.
 
-Default value: `null`
+_Example:_
+```js
+icons : [
+  {
+    src : 'res/icon-1024.png'
+  }
+]
+```
+
+Default value: `[]`
 
 #### options.platforms
 Type: `Array` of ([Platform objects](#platform-objects))
@@ -190,13 +199,18 @@ Please refer to the Cordova/PhoneGap Icons and Splash Screens documentation for 
 Type: `String`
 
 #### image.density
-Type: `String`
+Type: `String` (optional)
 
 #### image.width
-Type: `Number`
+Type: `Number` (optional)
 
 #### image.height
-Type: `Number`
+Type: `Number` (optional)
+
+#### image.platform
+Type: `String` (optional)
+
+For use in `option.icons`, though specifying icons in the `platforms` array may be preferable.
 
 ### Platform Objects
 
@@ -273,9 +287,11 @@ grunt.initConfig({
           ]
         }
       ],
-      icon : {
-        src : 'icon-default.png'
-      },
+      icons : [
+        {
+          src : 'icon-default.png'
+        }
+      ],
       platforms : [
         {
           name : 'ios',

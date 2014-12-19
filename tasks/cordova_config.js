@@ -31,6 +31,9 @@ module.exports = function (grunt) {
       if ('height' in image) {
          i.height = image.height;
       }
+      if ('platform' in image) {
+         i.platform = image.platform;
+      }
       return { '@' : i };
    }
 
@@ -92,7 +95,7 @@ module.exports = function (grunt) {
          ],
          features : grunt.option('features') || [],
          platforms : grunt.option('platforms') || [],
-         icon : grunt.option('icon') || null
+         icons : grunt.option('icons') || []
       });
 
       var data = {
@@ -136,7 +139,7 @@ module.exports = function (grunt) {
                param : feature.params.map(attributesForParam)
             };
          }),
-         icon : attributesForImage(options.icon),
+         icon : options.icons.map(attributesForImage),
          platform : options.platforms.map(function(platform) {
             var icons = platform.icons || [];
             var splashScreens = platform.splash || [];

@@ -83,11 +83,17 @@ module.exports = function (grunt) {
                      ]
                   }
                ],
-               icon: {
-                  src: 'res/icon.png',
-                  width: 60,
-                  height: 60
-               },
+               icons: [
+                  {
+                     src: 'res/icon.png',
+                     width: 60,
+                     height: 60
+                  },
+                  {
+                     src: 'res/icon-rounded.png',
+                     platform: 'android'
+                  }
+               ],
                platforms  : [
                   {
                      name  : 'android',
