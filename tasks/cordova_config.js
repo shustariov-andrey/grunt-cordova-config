@@ -11,6 +11,60 @@ var js2xmlparser = require("js2xmlparser");
 module.exports = function (grunt) {
    'use strict';
 
+   // Ensure that only supported attributes are included in XML
+   function attributesForImage(image) {
+      if (grunt.util.kindOf(image) !== 'object') {
+         // js2xmlparser does not create an element to represent []
+         return [];
+      }
+
+      var i = {
+         src : image.src
+      };
+
+      if ('density' in image) {
+         i.density = image.density;
+      }
+      if ('width' in image) {
+         i.width = image.width;
+      }
+      if ('height' in image) {
+         i.height = image.height;
+      }
+      if ('platform' in image) {
+         i.platform = image.platform;
+      }
+      return { '@' : i };
+   }
+
+   function attributesForParam(param) {
+      if (grunt.util.kindOf(param) !== 'object') {
+         return [];
+      }
+
+      var p = {
+         name : param.name,
+         value: param.value
+      };
+
+      if ('onload' in param) {
+         p.onload = param.onload;
+      }
+      return { '@' : p };
+   }
+
+   function attributesForPreference(pref) {
+      if (grunt.util.kindOf(pref) !== 'object') {
+         return [];
+      }
+
+      var p = {
+         name : pref.name,
+         value: pref.value
+      };
+      return { '@' : p };
+   }
+
    // Please see the Grunt documentation for more information regarding task
    // creation: http://gruntjs.com/creating-tasks
 
@@ -40,7 +94,8 @@ module.exports = function (grunt) {
             }
          ],
          features : grunt.option('features') || [],
-         platforms : grunt.option('platforms') || []
+         platforms : grunt.option('platforms') || [],
+         icons : grunt.option('icons') || []
       });
 
       var data = {
@@ -75,61 +130,31 @@ module.exports = function (grunt) {
              }
              return _access;
          }),
-         preference : options.preferences.map(function(pref) {
-            return {
-               '@' : {
-                  name : pref.name,
-                  value : pref.value
-               }
-            };
-         }),
+         preference : options.preferences.map(attributesForPreference),
          feature : options.features.map(function(feature) {
             return {
                '@' : {
                   name : feature.name
                },
-               param : feature.params.map(function(param) {
-                  var p = {
-                     '@' : {
-                        name : param.name,
-                        value : param.value
-                     }
-                  };
-                  if ('onload' in param) {
-                     p['@'].onload = param.onload;
-                  }
-                  return p;
-               })
+               param : feature.params.map(attributesForParam)
             };
          }),
-        platform : options.platforms.map(function(platform) {
-          var icons = platform.icons || [];
+         icon : options.icons.map(attributesForImage),
+         platform : options.platforms.map(function(platform) {
+            var icons = platform.icons || [];
+            var splashScreens = platform.splash || [];
+            var preferences = platform.preferences || [];
 
-          return {
-            '@' : {
-              name : platform.name
-            },
+            return {
+               '@' : {
+                  name : platform.name
+               },
 
-            icon : icons.map(function(icon) {
-              var i = {
-                '@' : {
-                  src : icon.src,
-                }
-              };
-
-              if ('density' in icon) {
-                i['@'].density = icon.density;
-              }
-              if ('width' in icon) {
-                i['@'].width = icon.width;
-              }
-              if ('height' in icon) {
-                i['@'].height = icon.height;
-              }
-              return i;
-            })
-          };
-        })
+               icon : icons.map(attributesForImage),
+               splash : splashScreens.map(attributesForImage),
+               preference : preferences.map(attributesForPreference)
+            };
+         })
       };
 
       var result = js2xmlparser("widget", data);

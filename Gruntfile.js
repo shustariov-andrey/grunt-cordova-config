@@ -83,29 +83,63 @@ module.exports = function (grunt) {
                      ]
                   }
                ],
+               icons: [
+                  {
+                     src: 'res/icon.png',
+                     width: 60,
+                     height: 60
+                  },
+                  {
+                     src: 'res/icon-rounded.png',
+                     platform: 'android'
+                  }
+               ],
                platforms  : [
                   {
                      name  : 'android',
                      icons : [
-                       {
-                          src: 'res/icon.jpg',
-                          density: 'ldpi'
-                       },
-                       {
-                         src: 'res/icon.jpg',
-                         height: '50px',
-                         width: '50px'
-                       }
+                        {
+                           src: 'res/icon.jpg',
+                           density: 'ldpi'
+                        },
+                        {
+                           src: 'res/icon.jpg',
+                           height: 50,
+                           width: 50
+                        }
+                     ],
+                     splash : [
+                        {
+                           src: 'res/splash-hdpi.png',
+                           density: 'port-hdpi'
+                        },
+                        {
+                           src: 'res/splash-mdpi.png',
+                           density: 'port-mdpi'
+                        }
                      ]
                   },
                   {
                      name  : 'ios',
                      icons : [
-                       {
-                         src: 'res/icon.jpg'
-                       }
+                        {
+                           src: 'res/icon.jpg'
+                        }
+                     ],
+                     splash: [
+                        {
+                           src: 'res/splash.png',
+                           width: 320,
+                           height: 480
+                        }
+                     ],
+                     preferences : [
+                        {
+                           name : 'fullscreen',
+                           value: false
+                        }
                      ]
-                 }
+                  }
                ]
             },
             dest   : 'tmp/config_actual.xml'
