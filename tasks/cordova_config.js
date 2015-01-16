@@ -74,6 +74,8 @@ module.exports = function (grunt) {
       var options = this.options({
          id : grunt.option('id') || 'com.example.hello',
          version : grunt.option('version') || '0.0.1',
+         androidVersionCode : grunt.option('androidVersionCode'),
+         iosBundleVersion : grunt.option('iosBundleVersion'),
          name : grunt.option('name') || 'HelloWorld',
          description : grunt.option('description') || 'A sample Apache Cordova application that responds to the deviceready event.',
          author : grunt.option('author') || {
@@ -156,6 +158,13 @@ module.exports = function (grunt) {
             };
          })
       };
+
+      if (options.androidVersionCode) {
+         data['@']['android-versionCode'] = options.androidVersionCode;
+      }
+      if (options.iosBundleVersion) {
+         data['@']['ios-CFBundleVersion'] = options.iosBundleVersion;
+      }
 
       var result = js2xmlparser("widget", data);
 
