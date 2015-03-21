@@ -38,6 +38,8 @@ module.exports = function (grunt) {
                id         : 'com.shustariov.mtclient',
                name       : 'MT Client',
                version    : '0.0.1',
+               androidVersionCode : 1,
+               iosBundleVersion   : '1',
                description: 'An application for money tracking',
                author     : {
                   name : 'Andrey Shustariov',
