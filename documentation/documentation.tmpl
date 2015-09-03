@@ -1,0 +1,212 @@
+# grunt-cordova-config
+
+> Generates cordova config.xml file
+
+[![Build Status](https://travis-ci.org/shustariov-andrey/grunt-cordova-config.svg?branch=master)](https://travis-ci.org/shustariov-andrey/grunt-cordova-config) [![Dependency Status](https://david-dm.org/shustariov-andrey/grunt-cordova-config.svg)](https://david-dm.org/shustariov-andrey/grunt-cordova-config) [![devDependency Status](https://david-dm.org/shustariov-andrey/grunt-cordova-config/dev-status.svg)](https://david-dm.org/shustariov-andrey/grunt-cordova-config#info=devDependencies)
+
+
+## Getting Started
+This plugin requires Grunt.
+
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+
+```shell
+npm install grunt-cordova-config --save-dev
+```
+
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+
+```js
+grunt.loadNpmTasks('grunt-cordova-config');
+```
+
+## The "cordova_config" task
+
+### Overview
+In your project's Gruntfile, add a section named `cordova_config` to the data object passed into `grunt.initConfig()`.
+
+```js
+grunt.initConfig({
+    cordova_config: {
+        my_target: {
+            options : {
+                id: 'com.example.hello',
+                version: '1.0.0',
+                // ...
+            },
+            dest: 'path/to/config.xml'
+        }
+    }
+})
+```
+
+### Options
+
+<% include('options',o.options); %>### Usage Examples
+
+#### Default Options
+In this example, the default options are used to generate config.xml file. The result will be the same as after `cordova create` command
+
+```js
+grunt.initConfig({
+    cordova_config: {
+        my_target: {
+            dest: 'cordova-project/www/config.xml'
+        }
+    }
+})
+```
+
+#### Custom Options
+
+```js
+grunt.initConfig({
+    cordova_config: {
+        options: {
+            id: 'com.example.application',
+            name: 'app name',
+            author: {
+                name: 'First Last',
+                email: 'email@example.com'
+            },
+            preferences: [
+                {
+                    name: 'fullscreen',
+                    value: true
+                },
+                {
+                    name: 'webviewbounce',
+                    value: false
+                },
+                {
+                    name: 'UIWebViewBounce',
+                    value: false
+                },
+                {
+                    name: 'DisallowOverscroll',
+                    value: true
+                },
+                {
+                    name: 'BackupWebStorage',
+                    value: 'none'
+                }
+            ],
+            features: [
+                {
+                    name: 'StatusBar',
+                    onload: true,
+                    params: [
+                        {
+                            name: 'ios-package',
+                            value: 'CDVStatusBar'
+                        }
+                    ]
+                }
+            ]
+            icons: [
+                {
+                    src: 'icon-default.png'
+                }
+            ],
+            platforms: [
+                {
+                    name: 'ios',
+                    icons: [
+                        {
+                            src: 'res/Icon-60.png',
+                            width: 60,
+                            height: 60
+                        }
+                    ],
+                    splashes: [
+                        {
+                            src: 'res/Default.png',
+                            width : 320,
+                            height: 480
+                        }
+                    ],
+                    preferences: [
+                        {
+                            name: 'fullscreen',
+                            value: false
+                        }
+                    ]
+                }
+            ]
+        }
+        dest: 'cordova-project/www/config.xml'
+    }
+});
+```
+
+## Contributing
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+
+### Development
+
+Adding a new property/option to grunt-cordova-config is relatively painless. Add a new file inisde of `src/configs` that will contain the declaration for your new property. You can reference an existing config.
+
+#### API
+
+Each config must declare the following:
+
+-   occurances *(string)*
+    -   This is how many times this configuration can appear in the options. Valid values are `multiple` or `single`.
+        -   Single means that the configuration can only occur once and at the root of the options.
+        -   Multiple means it can occur anywhere and at anytime, multiple times. An example of this would be the icon config. It can appear in the root of the options, or inside of a platform configuration.
+-   hasMany *(boolean)*
+    -   This is wether or not the option can handle multiple values. The value passed in will automatially be converted to an array if it is not already when this is set to true. An example of this would be the icon configuration.
+-   optionsKey *(string)*
+    -   This is only required if your configuration has a specific option key that it correlates to. You can leave this blank to handle the options parsing yourself.
+-   getDefaultOptions *(() => any)*
+    -   This function should return what the default options are.
+-   getDocumentation *(() => object)*
+    -   This function should return documentation about your config.
+        -   The result should be an object with the following format:
+            -   ```javascript
+                {
+                    description: 'The description about your config.',
+                    examples: [
+                        {
+                            title: 'An example',
+                            example: {
+                                // An object example. This will be JSON.stringify-ied
+                            }
+                        }
+                    ],
+                    moreInfo: 'http://aUrlToMoreInfo',
+                    type: {
+                        someKey: {
+                            description: // ...
+                            examples: // ...
+                            moreInfo: // ...
+                            type: // ...
+                        }
+                    }
+                }
+            ```
+            -   All of the fields are optional except for `type`. This field can be either:
+                -   A single element array of any of the following, or one of the following:
+                -   An object with key-value pairs. The key being the name of a property, and the value being the description of that property.
+                -   A string.
+-   processor *((object,() => object) => object)*
+    -   This function is called to transform the options into a JSON XML object. The first argument passed in is the options, and the second argument is a nested processor that you can call to include child options. An example of this would be the `platforms` config, allowing you to nest more configurations inside it.
+
+### Build
+
+This project is written in ES6. To compile with grunt use: `grunt babel`. The sources inside `src` will be built and placed inside the `lib` directory.
+
+### Lint
+
+`grunt jshint`
+
+### Documentation
+
+`grunt blueimp_tmpl`
+
+### Test
+
+`grunt nodeunit`
+
+## License
+Copyright (c) 2014 Andrey Shustariov. Licensed under the MIT license.

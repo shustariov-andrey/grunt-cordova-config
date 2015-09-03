@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget id="com.shustariov.mtclient" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-	<name>MT Client</name>
-	<description>An application for money tracking</description>
-	<author email="shutarev.andrey@gmail.com" href="">Andrey Shustariov</author>
+<widget id="com.mysite.myclient" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+	<name>My Client</name>
+	<description>An application for testing cordova config.</description>
+	<author email="someone@somewhere.com">Someone</author>
 	<content src="out/index.html"/>
 	<access origin="*"/>
 	<access origin="tel:*" launch-external="yes"/>
 	<access origin="mailto:*" launch-external="yes"/>
+	<allow-intent href="http://*/*"/>
+	<allow-intent href="https://*/*"/>
+	<allow-intent href="tel:*"/>
+	<allow-intent href="sms:*"/>
+	<allow-intent href="mailto:*"/>
+	<allow-intent href="geo:*"/>
 	<preference name="fullscreen" value="true"/>
 	<preference name="webviewbounce" value="false"/>
 	<preference name="UIWebViewBounce" value="false"/>
@@ -15,4 +21,12 @@
 	<feature name="StatusBar">
 		<param name="ios-package" value="CDVStatusBar" onload="true"/>
 	</feature>
+	<platform name="android">
+		<allow-intent href="market:*"/>
+	</platform>
+	<platform name="ios">
+		<allow-intent href="itms:*"/>
+		<allow-intent href="itms-apps:*"/>
+	</platform>
+	<plugin name="cordova-plugin-whitelist" spec="1"/>
 </widget>
