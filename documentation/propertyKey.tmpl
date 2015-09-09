@@ -1,0 +1,15 @@
+<%
+if(!global.__propertyKey__){
+	global.__propertyKey__ = ['options'];
+}
+global.__propertyKey__.push(o.key);
+for(var i = 0; i < global.__propertyKey__.length; i++){
+	print('#',false);
+}
+print(' ' + global.__propertyKey__.join('.') + '\n\n');
+include(
+	'property',
+	o.property
+);
+global.__propertyKey__.pop();
+%>

@@ -1,0 +1,32 @@
+<% for(var i = 0; i < o.length; i++){
+	var config = o[i];
+	var documentation = config.getDocumentation();
+	var defaultValue = config.getDefaultOptions();
+	if(config.hasMany && documentation.type instanceof Array == false){
+		documentation.type = [documentation.type];
+	}
+	if(config.optionsKey){
+		documentation.defaultValue = defaultValue;
+		include(
+			'propertyKey',
+			{
+				key: config.optionsKey,
+				property: documentation
+			}
+		);
+	}
+	else {
+		Object.getOwnPropertyNames(documentation.type).forEach(function(key){
+			if(typeof defaultValue[key] != 'undefined'){
+				documentation.type[key].defaultValue = defaultValue[key];
+			}
+			include(
+				'propertyKey',
+				{
+					key: key,
+					property: documentation.type[key]
+				}
+			);
+		});
+	}
+} %>

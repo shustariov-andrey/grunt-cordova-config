@@ -1,0 +1,70 @@
+<%
+function getType(type){
+	if(type instanceof Array){
+		var actualType = getType(type[0]);
+		return _e('Array<' + actualType + '> | ' + actualType);
+	}
+	else if(typeof type == 'object'){
+		return 'object';
+	}
+	else {
+		return type;
+	}
+}
+if(o.description){
+	print(o.description + '\n\n',true);
+}
+if(o.type){
+	var type = getType(o.type);
+	print('**Type**: *',true);
+	if(o.required){
+		print('(required) ',true);
+	}
+	print(type,true);
+	if(type.indexOf('object') != -1){
+		print(' of:',true);
+	}
+	print('*\n\n');
+	if(typeof o.type != 'string'){
+		if(o.type instanceof Array){
+			o.type = o.type[0];
+		}
+		if(typeof o.type == 'object'){
+			Object.getOwnPropertyNames(o.type).forEach(function(key){
+				if(key == '__any__'){
+					print('Can include any normal configuration.\n\n');
+				}
+				else {
+					include(
+						'propertyKey',
+						{
+							key: key,
+							property: o.type[key]
+						}
+					);
+				}
+			});
+		}
+	}
+}
+if(o.moreInfo){
+	print('[More Info]('+o.moreInfo+')\n\n',true);
+}
+if(o.defaultValue){
+	var defaultValue = stringify(o.defaultValue);
+	print('**Default**',true);
+	if(defaultValue.split('\n').length > 1){
+		print('\n\n' + defaultValue ,true);
+	}
+	else {
+		print(': '+defaultValue,true)
+	}
+	print('\n\n',true);
+}
+if(o.examples){
+	print('**Examples**\n\n');
+	o.examples.forEach(function(example){
+		print(stringify(example.example,example.title) + '\n\n',true);
+	});
+}
+%>
