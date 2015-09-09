@@ -286,6 +286,6 @@ module.exports = function (grunt) {
 
   grunt.loadTasks('tasks');
   grunt.loadNpmTasks("grunt-mocha-chai-sinon");
-
+  grunt.registerTask('test', ['jshint', 'cordova_config', 'mocha-chai-sinon']);
   grunt.registerTask('default', ['clean', 'jshint', 'babel', 'blueimp_tmpl', 'cordova_config', 'jshint', 'mocha-chai-sinon']);
 };
