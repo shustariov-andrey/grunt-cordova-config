@@ -143,6 +143,34 @@ module.exports = function (grunt) {
                   name: "ios",
                   spec: '4'
                 }
+              ],
+              configFiles: [
+                {
+                  target: 'AndroidManifest.xml',
+                  parent: '/*',
+                  contents: {
+                    'supports-screens': {
+                      '@': {
+                        'android:xlargeScreens': false,
+                        'android:largeScreens': false,
+                        'android:smallScreens': true
+                      }
+                    },
+                    'uses-permission': [
+                      {
+                        '@': {
+                          'android:name': 'android.permission.READ_CONTACTS',
+                          'android:maxSdkVersion': 15
+                        }
+                      },
+                      {
+                        '@': {
+                          'android:name': 'android.permission.WRITE_CONTACTS'
+                        }
+                      }
+                    ]
+                  }
+                }
               ]
             },
             {
@@ -163,6 +191,31 @@ module.exports = function (grunt) {
                 {
                   name: 'fullscreen',
                   value: false
+                }
+              ],
+              configFiles: [
+                {
+                  target: '*-Info.plist',
+                  parent: 'UIBackgroundModes',
+                  contents: {
+                    array: {
+                      string: 'location'
+                    }
+                  }
+                },
+                {
+                  target: '*-Info.plist',
+                  parent: 'NSAppTransportSecurity',
+                  contents: {
+                    dict: {
+                      key: [
+                        'NSAllowsArbitraryLoads',
+                        {
+                          '=': 'true'
+                        }
+                      ]
+                    }
+                  }
                 }
               ]
             }

@@ -24,11 +24,28 @@
 		<icon src="res/icon.jpg" width="50" height="50"/>
 		<splash src="res/splash-hdpi.png" density="port-hdpi"/>
 		<splash src="res/splash-mdpi.png" density="port-mdpi"/>
+		<config-file target="AndroidManifest.xml" parent="/*">
+			<supports-screens android:xlargeScreens="false" android:largeScreens="false" android:smallScreens="true"/>
+			<uses-permission android:name="android.permission.READ_CONTACTS" android:maxSdkVersion="15"/>
+			<uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+		</config-file>
 	</platform>
 	<platform name="ios">
 		<preference name="fullscreen" value="false"/>
 		<icon src="res/icon.jpg"/>
 		<splash src="res/splash.png" width="320" height="480"/>
+		<config-file target="*-Info.plist" parent="UIBackgroundModes">
+			<array>
+				<string>location</string>
+			</array>
+		</config-file>
+		<config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+			<dict>
+				<key>NSAllowsArbitraryLoads</key>
+				<true>
+				</true>
+			</dict>
+		</config-file>
 	</platform>
 	<engine name="android" spec="4.0.2"/>
 	<plugin name="cordova-plugin-file" spec="^3.0.0"/>

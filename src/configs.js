@@ -12,5 +12,6 @@ export default [
 	'platform',
 	'engine',
 	'plugin',
-	'hook'
+	'hook',
+	'configFile'
 ].map((config) => require('./configs/'+config));
