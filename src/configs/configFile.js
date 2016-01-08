@@ -93,12 +93,15 @@ export default {
 			'config-file': configFiles.map((configFile) => {
 				let {target,parent,contents} = configFile;
 
-				contents['@'] = {
-					target,
-					parent
+				return {
+					'@': {
+						target,
+						parent
+					},
+					/* jshint ignore:start */
+					...contents
+					/* jshint ignore:end */
 				};
-				
-				return contents;
 			})
 		};
 	}
