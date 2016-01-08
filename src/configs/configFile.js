@@ -26,7 +26,64 @@ export default {
 				}
 			},
 			examples: [
-				// TODO
+				{
+					title: 'Add values to the AndroidManifest.xml file',
+					example: {
+						target: 'AndroidManifest.xml',
+						parent: '/*',
+						contents: {
+							'supports-screens': {
+								'@': {
+									'android:xlargeScreens': false,
+									'android:largeScreens': false,
+									'android:smallScreens': true
+								}
+							},
+							'uses-permission': [
+								{
+									'@': {
+										'android:name': 'android.permission.READ_CONTACTS',
+										'android:maxSdkVersion': 15
+									}
+								},
+								{
+									'@': {
+										'android:name': 'android.permission.WRITE_CONTACTS'
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					title: 'Add an array value to the iOS Info.plist file',
+					example: {
+						target: '*-Info.plist',
+						parent: 'UIBackgroundModes',
+						contents: {
+							array: {
+								string: 'location'
+							}
+						}
+					}
+				},
+				{
+					title: 'Add a dict value to the iOS Info.plist file',
+					example: {
+						target: '*-Info.plist',
+						parent: 'NSAppTransportSecurity',
+						contents: {
+							dict: {
+								key: [
+									'NSAllowsArbitraryLoads',
+									{
+										'=': 'true'
+									}
+								]
+							}
+						}
+					}
+				}
 			],
 			moreInfo: 'https://github.com/dpa99c/cordova-custom-config#config-files'
 		};
