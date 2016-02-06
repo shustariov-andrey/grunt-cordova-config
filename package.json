@@ -27,17 +27,17 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "chai": "^3.2.0",
-    "chai-xml": "^0.3.0",
-    "gitdown": "^1.2.6",
+    "chai": "^3.5.0",
+    "chai-xml": "^0.3.1",
+    "gitdown": "^2.4.0",
     "grunt": "~0.4.5",
     "grunt-babel": "^5.0.1",
     "grunt-blueimp-tmpl": "^1.0.0",
-    "grunt-contrib-clean": "~0.6.0",
-    "grunt-contrib-jshint": "~0.11.3",
+    "grunt-contrib-clean": "~0.7.0",
+    "grunt-contrib-jshint": "~0.12.0",
     "grunt-mocha-chai-sinon": "0.0.9",
-    "jshint-stylish": "~2.0.1",
-    "load-grunt-tasks": "~3.2.0"
+    "jshint-stylish": "~2.1.0",
+    "load-grunt-tasks": "~3.4.0"
   },
   "scripts": {
     "test": "grunt test",

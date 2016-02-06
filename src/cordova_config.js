@@ -26,7 +26,7 @@ export default function(grunt){
 			return input;
 		}
 	}
-	
+
 	function getPluginOptions(plugin,options,scope){
 		let pluginOptions = options;
 		if(plugin.optionsKey){
@@ -51,7 +51,7 @@ export default function(grunt){
 		}
 		return pluginOptions;
 	}
-	
+
 	function processor(options,plugins,scope = 0){
 		let result = {};
 		plugins.forEach((plugin) => {
@@ -76,7 +76,7 @@ export default function(grunt){
 		});
 		return deleteUndefined(result);
 	}
-	
+
 	grunt.registerMultiTask('cordova_config','Generates cordova config.xml',function(){
 		grunt.file.write(
 			this.data.dest,
@@ -84,7 +84,13 @@ export default function(grunt){
 				processor(
 					this.options(),
 					configs
-				)
+				),
+        {
+          prettyPrinting: {
+            enabled: true,
+            indentString: '  '
+          }
+        }
 			)
 		);
 

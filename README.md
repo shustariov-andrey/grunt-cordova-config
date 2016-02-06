@@ -765,9 +765,7 @@ The js2xmlparser-compatible JSON object to insert into the configuration file as
         "dict": {
             "key": [
                 "NSAllowsArbitraryLoads",
-                {
-                    "=": "true"
-                }
+                "true"
             ]
         }
     }
@@ -894,39 +892,35 @@ Each config must declare the following:
     -   This function should return what the default options are.
 -   getDocumentation *(() => object)*
     -   This function should return documentation about your config.
-        -   The result should be an object with the following format: [getDocumentation return template](#getdocumentation-return-template)
+        -   The result should be an object with the following format:
+            -   ```javascript
+                {
+                    description: 'The description about your config.',
+                    examples: [
+                        {
+                            title: 'An example',
+                            example: {
+                                // An object example. This will be JSON.stringify-ied
+                            }
+                        }
+                    ],
+                    moreInfo: 'http://aUrlToMoreInfo',
+                    type: {
+                        someKey: {
+                            description: // ...
+                            examples: // ...
+                            moreInfo: // ...
+                            type: // ...
+                        }
+                    }
+                }
+            ```
             -   All of the fields are optional except for `type`. This field can be either:
                 -   A single element array of any of the following, or one of the following:
                 -   An object with key-value pairs. The key being the name of a property, and the value being the description of that property.
                 -   A string.
 -   processor *((object,() => object) => object)*
     -   This function is called to transform the options into a JSON XML object. The first argument passed in is the options, and the second argument is a nested processor that you can call to include child options. An example of this would be the `platforms` config, allowing you to nest more configurations inside it.
-
-
-##### getDocumentation return template
-
-```javascript
-{
-    description: 'The description about your config.',
-    examples: [
-        {
-            title: 'An example',
-            example: {
-                // An object example. This will be JSON.stringify-ied
-            }
-        }
-    ],
-    moreInfo: 'http://aUrlToMoreInfo',
-    type: {
-        someKey: {
-            description: // ...
-            examples: // ...
-            moreInfo: // ...
-            type: // ...
-        }
-    }
-}
-```
 
 ### Build
 

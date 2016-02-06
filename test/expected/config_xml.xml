@@ -43,7 +43,7 @@
 			<dict>
 				<key>NSAllowsArbitraryLoads</key>
 				<true>
-				</true>
+        </true>
 			</dict>
 		</config-file>
 	</platform>

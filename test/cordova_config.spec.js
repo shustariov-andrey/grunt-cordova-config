@@ -9,7 +9,7 @@ describe('cordova_config', function () {
   it('should generate valid config.xml', function() {
     var actual = grunt.file.read('tmp/config_actual.xml');
     var expected = grunt.file.read('test/expected/config_xml.xml');
-    expect(actual).xml.to.equal(expected);
+    expect(actual).xml.to.deep.equal(expected);
   });
 
   it('should generate valid config with external application whitelist.xml', function () {
