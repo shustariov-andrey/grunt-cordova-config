@@ -683,6 +683,97 @@ The path to the hook to execute.
 }
 ```
 
+## options.configFiles
+
+A block of configuration file content for use with cordova-custom-config.
+
+**Type**: *Array&lt;object&gt; | object of:*
+
+### options.configFiles.target
+
+The config file to which the contents will be added.
+
+**Type**: *(required) string*
+
+### options.configFiles.parent
+
+The existing item under which the contents will be added (XPath for Android, plist key name for iOS).
+
+**Type**: *(required) string*
+
+### options.configFiles.contents
+
+The js2xmlparser-compatible JSON object to insert into the configuration file as XML.
+
+**Type**: *(required) object of:*
+
+[More Info](https://github.com/dpa99c/cordova-custom-config#config-files)
+
+**Default**: `[]`
+
+**Examples**
+
+```javascript
+// Add values to the AndroidManifest.xml file
+{
+    "target": "AndroidManifest.xml",
+    "parent": "/*",
+    "contents": {
+        "supports-screens": {
+            "@": {
+                "android:xlargeScreens": false,
+                "android:largeScreens": false,
+                "android:smallScreens": true
+            }
+        },
+        "uses-permission": [
+            {
+                "@": {
+                    "android:name": "android.permission.READ_CONTACTS",
+                    "android:maxSdkVersion": 15
+                }
+            },
+            {
+                "@": {
+                    "android:name": "android.permission.WRITE_CONTACTS"
+                }
+            }
+        ]
+    }
+}
+```
+
+```javascript
+// Add an array value to the iOS Info.plist file
+{
+    "target": "*-Info.plist",
+    "parent": "UIBackgroundModes",
+    "contents": {
+        "array": {
+            "string": "location"
+        }
+    }
+}
+```
+
+```javascript
+// Add a dict value to the iOS Info.plist file
+{
+    "target": "*-Info.plist",
+    "parent": "NSAppTransportSecurity",
+    "contents": {
+        "dict": {
+            "key": [
+                "NSAllowsArbitraryLoads",
+                {
+                    "=": "true"
+                }
+            ]
+        }
+    }
+}
+```
+
 ### Usage Examples
 
 #### Default Options
